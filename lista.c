@@ -27,6 +27,31 @@ Funcionario *adicionaInicio(Funcionario *first,Funcionario *novo){
     return first;
 }
 
+Funcionario *adicionaFinal(Funcionario *first,Funcionario *novo){
+    Funcionario *aux;
+    if(listaVazia(first)){
+        return novo;
+    }    
+    for(aux = first; aux->next != NULL; aux=aux->next);
+    aux->next = novo;
+    return first;
+}
+
+Funcionario *adicionaDepois(Funcionario *first,Funcionario *novo, int v){
+    Funcionario *aux;
+    if(listaVazia(first)){
+        return novo;
+    }
+    for(aux = first; aux->next != NULL; aux=aux->next){
+        if(aux->cod == v){
+            novo->next = aux->next;
+            aux->next = novo;
+            break;
+        }
+    }
+    return first;
+}
+
 Funcionario *criaFunc(int cod, char nome[], double salario){
     Funcionario *novo = malloc(sizeof(Funcionario));
     novo->cod = cod;
@@ -58,6 +83,8 @@ int main(){
     first = adicionaInicio(first, criaFunc(2, "José", 63.5));
     first = adicionaInicio(first, criaFunc(3, "Pedro", 63.5));
     first = adicionaInicio(first, criaFunc(4, "Maria", 100.5));
+    first = adicionaFinal(first, criaFunc(0, "Carlos", 10.5));
+    first = adicionaDepois(first, criaFunc(7, "Paulo", 10.5), 2);
     printLista(first);
     printf("\n");
     printListaContrario(first);
