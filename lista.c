@@ -46,9 +46,27 @@ Funcionario *adicionaDepois(Funcionario *first,Funcionario *novo, int v){
         if(aux->cod == v){
             novo->next = aux->next;
             aux->next = novo;
-            break;
+            return first;
+        }
+    };
+    aux->next = novo;
+    return first;
+}
+
+Funcionario *adicionaAntes(Funcionario *first,Funcionario *novo, int v){
+    Funcionario *aux;
+    if(listaVazia(first)){
+        return novo;
+    }
+    for(aux = first; aux->next != NULL; aux=aux->next){
+        if(aux->next->cod == v){  
+            novo->next = aux->next;    
+            aux->next = novo;    
+            return first;
         }
     }
+    novo->next = first;
+    first = novo;  
     return first;
 }
 
@@ -83,8 +101,11 @@ int main(){
     first = adicionaInicio(first, criaFunc(2, "José", 63.5));
     first = adicionaInicio(first, criaFunc(3, "Pedro", 63.5));
     first = adicionaInicio(first, criaFunc(4, "Maria", 100.5));
+    first = adicionaDepois(first, criaFunc(9, "Paulo", 10.5), 4);
+    first = adicionaAntes(first, criaFunc(8, "Luiza", 70.5), 4);
     first = adicionaFinal(first, criaFunc(0, "Carlos", 10.5));
-    first = adicionaDepois(first, criaFunc(7, "Paulo", 10.5), 2);
+    first = adicionaDepois(first, criaFunc(12, "Paulo", 10.5), 0);
+    first = adicionaAntes(first, criaFunc(13, "Luiza", 70.5), 0);
     printLista(first);
     printf("\n");
     printListaContrario(first);
